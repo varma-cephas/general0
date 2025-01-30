@@ -1015,3 +1015,149 @@ console.log(myFile.gets()); // "Line 5"
 console.log(myFile.gets()); // undefined
 console.log(myFile.gets()); // undefined
 console.log(myFile.gets()); // undefined
+
+
+
+
+
+# 1.30.25, Generators
+    - the `yield` keyword is lowkey new and was introduced in ES6, and it can only be used inside of generator function. `yield` the main culprit behind the generator pausing, take a look at how to use the `yeild` keyword below.
+        
+        ```js
+        function* getEmployee() {
+        console.log('the function has started');
+
+        const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+
+        for (const name of names) {
+            console.log(name);
+            yield;
+        }
+
+        console.log('the function has ended');
+    }
+        ```
+
+    - notice that in the code above, we're using `yield` inside of the `for...of` loop. When the generator is invoked, (which produces an iterator) and call next, we're going to get the following output.
+
+    ```js
+    const generatorIterator = getEmployee();
+    generatorIterator.next();
+    //logs The function has started
+    //Amanda
+    ```
+    - it paused, but to be sure, check out the next iteration.
+
+    ```js
+    generatorIterator.next();
+    //logs
+    //Diego
+    ```
+    - it resumed and took off from where we left of in the last iteration. everytime we hit the `yield` keyword the code get's paused. now this is all fun, but what if we actually want to send data from the generator to the outside world, we can also do this with yield, ensentially replacing the need for a return keyword
+        - here's an example
+        ```js
+        function* getEmployee() {
+        console.log('the function has started');
+
+        const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+
+        for (const name of names) {
+            yield name;
+        }
+
+            console.log('the function has ended');
+        }
+        ```
+    - now that we have done that, we can now use use the .value property to get the value from our generator
+        ````js
+        const generatorIterator = getEmployee();
+        let result = generatorIterator.next();
+        result.value // is "Amanda"
+        
+        generatorIterator.next().value // is "Diego"
+        generatorIterator.next().value // is "Farrin"
+        ````
+
+    #### Sending data in/out of a generator
+        - We can also send data into the generator by uisng the `.next()` method.
+        ```js
+        function* displayResponse() {
+        const response = yield;
+        console.log(`Your response is "${response}"!`);
+        }
+
+        const iterator = displayResponse();
+
+        iterator.next(); // starts running the generator function
+        iterator.next('Hello Udacity Student'); // send data into the generator
+        // the line above logs to the console: Your response is "Hello Udacity Student"!
+        ```
+
+        - We can also send data into the generator function. the yield keyword in summary is used to pause the generator, and send data outside of the generator. and the next method is used to pass data into the generator. take a look at another example below:
+        ```js
+            function* getEmployee() {
+            const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+            const facts = [];
+
+            for (const name of names) {
+                // yield *out* each name AND store the returned data into the facts array
+                facts.push(yield name); 
+            }
+
+                return facts;
+            }
+
+            const generatorIterator = getEmployee();
+
+            // get the first name out of the generator
+            let name = generatorIterator.next().value;
+
+            // pass data in *and* get the next name
+            name = generatorIterator.next(`${name} is cool!`).value; 
+
+            // pass data in *and* get the next name
+            name = generatorIterator.next(`${name} is awesome!`).value; 
+
+            // pass data in *and* get the next name
+            name = generatorIterator.next(`${name} is stupendous!`).value; 
+
+            // you get the idea
+            name = generatorIterator.next(`${name} is rad!`).value; 
+            name = generatorIterator.next(`${name} is impressive!`).value;
+            name = generatorIterator.next(`${name} is stunning!`).value;
+            name = generatorIterator.next(`${name} is awe-inspiring!`).value;
+
+            // pass the last data in, generator ends and returns the array
+            const positions = generatorIterator.next(`${name} is magnificent!`).value; 
+
+            // displays each name with description on its own line
+            positions.join('\n'); 
+        ```
+
+        - a usecase for generators is that they are great for iterating over a list of items one at a time so that we can handle each item on it's own before moving on to the next. let's say theere's an app that needs to get a list of all repositories and number of times they have starred. before we can get the humber of stars for each repository, we need to get the user's information. After then recieviing the profile of the user, the code can then take that info to find all the reppositories.
+
+        - there are some browsers not are not quite caught up with the es6 syntax, so you need to make your research before chosing to build out a specific feature in es6.
+
+
+
+
+
+
+
+
+
+        - end of day session
+            - tailwindcss
+            - planning day
+            - advanced speaking muscles
+            - anki flashcards
+            - codewars
+            - diving into es6 generators
+            - talk about what you have planned after the end of say session.
+
+    #### Professional Dev-Fu
+        - as new tech rolls out like es6 for example, it won't be supported by older browsers
+        - the code we've been working on this whole time is not supported by older browsers, that is older browsers that we develped prior to the release of ES6, if we try running any ES6 code in an older browser, it won't work.
+            - for example, attempting to use an arrow function in Safari 9 is just not going to work.
+            - it is really difficult for browswer vendors to keep up with these updates and changes because languages like HTML, CSS, and JS are always improving.
+        - Just as HTML, CSS, and SVG  has a standard body the WSC, **Ecma internation** is an industry association that develops and oversees standards like JS and JSON
