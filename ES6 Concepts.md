@@ -1161,3 +1161,52 @@ console.log(myFile.gets()); // undefined
             - for example, attempting to use an arrow function in Safari 9 is just not going to work.
             - it is really difficult for browswer vendors to keep up with these updates and changes because languages like HTML, CSS, and JS are always improving.
         - Just as HTML, CSS, and SVG  has a standard body the WSC, **Ecma internation** is an industry association that develops and oversees standards like JS and JSON
+
+
+
+
+
+# 1.30.25, Professional Dev-Fu
+    #### ES6 specification
+        - the ES6 specification is a set of rules and guidelines on how the language is supposed to function. it does not give specific details on how browser makers are to archieve functionality, it however give a step by step instructions on how the  language is supposed to work. 
+
+    #### Find which browser support which feature
+        - new specs of the language come out every year and browsers are updating every other month, it can be difficult to know which browser support which feature. each browser maker, with the exception of Safari has a website that tracks it's developement status. (including chrome, edge, and firefox)
+        - use new JavaScript features as they come out
+
+    #### Polyfills or polyfiller
+        - is a JavaScript file that patches a hole by replicating some native feature that is missing.
+            - better defined as a piece of code (or plugin) that provides the technology that you, the developer, expect the browser to natively provide.
+        
+        - take a look at the code example below, is a polyfill for the new ES6 String method, startsWith():
+            ```js
+            if (!String.prototype.startsWith) {
+            String.prototype.startsWith = function (searchString, position) {
+            position = position || 0;
+            return this.substr(position, searchString.length) === searchString;
+                };
+            }
+            ```
+        - as you can see in the code above, a polyfill is just regular JavaScript.
+            - this code here is a simple polyfill, but there's more on MD
+            - ! it is important to remember that polyfills are used to patch a missing functionality. if a browser already natively supports ES6 and there is already a startsWith method, there's mostly no need to polyfill it. if the check above did not exist, then the polyfill would overwrite the **native** implementation.
+            - polyfills are not only used for patching JavaScript missing features, there are polyfills for all sorts of browser features:
+                - namely: svgs, canvas, web storage(local/session storage), video, accessibility, etc...
+   
+    #### Transpiling
+        - is a process that takes source code and converts it into target code, it works like compiling but the source and target code are at the same level of abstraction. if the source code starts off as human readable, the target code is also human readable.
+            - this is useful because we can write our code in ES6, and use a transpiler to then convert that code to ES5 code, which is supported by most browsers.
+
+    #### Using Babel
+        - the most popular JavaScript transpiler is called Babel
+         - however the original name was more more descriptive, **6to5**
+        - Bable was originally made to convert code from ES6 to ES5, JSX to JavaScript and flow to JS.
+        - the way that Babel transforms code from one language to another is through the use of plugins. 
+            - there are plugins that transforms ES6 arrow functionss to regular ES5 functions.
+            - there are also plugins that transforms, template literals to regular strings concatenation.
+        - Instead of going through a long list of plugins to see which one is going to convert your code from ES6 to ES5, you can use the Babel preset, which are groups of plugins bundled. 
+        - you can look in .babelrc file, this is where you would put all your plugins, or presets that the your project will. 
+            - if you're going to be converting all your ES6 code, you can set the ES2015 preset.
+        - npm is a prerequicite to to use Babel btw.
+        - to use Babel, use can add to your script in the package.json, "build":"babel ES6 -d ES5"
+        - ! transpiling with babel is only necessary because there are old browsers that don't fully support ES6, once browsers fully supports the ES6, we no longer have to use bable or transpile.
