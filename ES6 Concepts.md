@@ -503,7 +503,7 @@ _/
 however, when we try adding something other than an object, we're going to get rejected by our darling, the WeakSet
 roster.add('Amanda');
 //logs Uncaught TypeError: Invalid value used in weak set(…)
-this is to be expected however be WeakSets can only contain objects.
+this is to be expected however be WeakSets can only contain objects. it is highly recommended to not not pass objects directly in the .add() method, but rather use pass a variable which is holding an object.
 one reason to use WeakSets over the regular Set is that WeakSet don't have a .clear() method.
 Garbage collection
 in JS, memory is allocated when new values are created, and automatically freed up when those values are no longer needed. The process of freeing up memory when is no longer needed is called garbage collection.
