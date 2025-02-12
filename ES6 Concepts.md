@@ -1231,3 +1231,18 @@ const prox= new Proxy(obj,handler);
 console.log(prox.age)
 ```
 In the example above, we're using the proxy object to throw an helpful error if the item doesn't not exits in a object instead of the default JS behaviour undefined.
+
+#### Promises
+The main point of promises is to enable JS to easily handle asyncronous operations, we can implement a simple promise by using the Promise class
+```js
+const prom=new Promise((resolve, reject)=>{
+        resolve("Abc")
+})
+
+prom.then(data=>{
+    console.log(data)
+}).catch(()=>console.log("error"))
+
+console.log("log before prom")
+```
+In the code example above, we are creating an instance of the promise object and resolving some data, that is what we want was successfully gotten, if not, we would use reject instead of resolve. The next thing that we're donig is we're use the promise then, which executes if the promise was successfully resolved, or the .catch if it was rejected.
