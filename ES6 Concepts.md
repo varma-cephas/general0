@@ -1210,3 +1210,24 @@ console.log(myFile.gets()); // undefined
         - npm is a prerequicite to to use Babel btw.
         - to use Babel, use can add to your script in the package.json, "build":"babel ES6 -d ES5"
         - ! transpiling with babel is only necessary because there are old browsers that don't fully support ES6, once browsers fully supports the ES6, we no longer have to use bable or transpile.
+
+
+
+
+# Examples
+#### Proxies
+One of the many things proxies can be useful for is, we can use it to say something help when a user is trying to find a property inside of a object that does not exists.
+```js
+const obj={age:9};
+
+const handler={
+    get(target, property, reciever){
+        return property in target? target[property]:`The property ${property} does not exists`
+    }
+}
+
+const prox= new Proxy(obj,handler);
+
+console.log(prox.age)
+```
+In the example above, we're using the proxy object to throw an helpful error if the item doesn't not exits in a object instead of the default JS behaviour undefined.
