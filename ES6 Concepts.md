@@ -1215,7 +1215,7 @@ console.log(myFile.gets()); // undefined
 
 
 # Examples
-#### Proxies
+### Proxies
 One of the many things proxies can be useful for is, we can use it to say something help when a user is trying to find a property inside of a object that does not exists.
 ```js
 const obj={age:9};
@@ -1232,7 +1232,7 @@ console.log(prox.age)
 ```
 In the example above, we're using the proxy object to throw an helpful error if the item doesn't not exits in a object instead of the default JS behaviour undefined.
 
-#### Promises
+### Promises
 The main point of promises is to enable JS to easily handle asyncronous operations, we can implement a simple promise by using the Promise class
 ```js
 const prom=new Promise((resolve, reject)=>{
@@ -1246,3 +1246,20 @@ prom.then(data=>{
 console.log("log before prom")
 ```
 In the code example above, we are creating an instance of the promise object and resolving some data, that is what we want was successfully gotten, if not, we would use reject instead of resolve. The next thing that we're donig is we're use the promise then, which executes if the promise was successfully resolved, or the .catch if it was rejected.
+
+### Generators
+Generators are basically function that are able to stop executing mid way, and continue where it left off. IT is important to note that **arrow functions can't be use as generators**, but it only limited to the regular functions.
+```js
+function* fun(){
+    yield "I'm"
+    yield "a"
+    yield "generator"
+}
+
+const nv=fun()
+
+console.log(nv.next().value)
+console.log(nv.next().value)
+console.log(nv.next().value)
+```
+In the example above, we're declaring an arrow function called fun, and we're using the yield keyword to step through the function. Generator functions implements the interator protocol, which means that we can use .next() to obtain their values.
