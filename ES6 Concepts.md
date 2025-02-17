@@ -1266,9 +1266,13 @@ In the example above, we're declaring an arrow function called fun, and we're us
 
 
 ### Object.is()
-The `Object.is()` method is super useful because if looks better and cleaner than the strict equality operator `===` which does the same thing as it. See the code example below using the `Object.is()` method;
+The `Object.is()` method is super useful because it looks better and cleaner than the strict equality operator `===` which does the same thing as it. See the code example below using the `Object.is()` method;
 ```js
 console.log(Object.is(1,"1") //false
 console.log(Object.is("a","a") //true
 ```
 In the code above, we're use the Object.is() method to strictly find if one value is equal to another.
+
+
+### Iterators
+
