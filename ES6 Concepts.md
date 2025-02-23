@@ -1002,7 +1002,7 @@ return arrItem.value
 
 gets(){
 
-}
+
 
 }
 
@@ -1275,4 +1275,13 @@ In the code above, we're use the Object.is() method to strictly find if one valu
 
 
 ### Iterators
+An iterator is an object that conforms or implements the iterator protocol (which defines a standard way to produce a sequence of values) by providing a `.next()` method which return an object, for example `{value:1, done:flase}`. All default iterators inherits the `[Symbol.iterator]()` method from **the iterator class**. The `[Symbol.iterator]()` provides the iterator object itself, making the iterator an **iterable**. These objects produces a sequence of values one step at a time when it is requested.
+```js
+const arr=[1,2,4,6];
+const arrIterator=arr[Symbol.iterator]();
+console.log(arrIterator)
+console.log(arrIterator.next())
+```
 
+### Iterable
+Iterables are basically data structures that allow their data to be consumed or used. An example of iterables are `Maps`, `Arrays`, `Sets`, and `Strings`.
