@@ -1216,7 +1216,7 @@ console.log(myFile.gets()); // undefined
 
 # Examples
 ### Proxies
-One of the many things proxies can be useful for is, we can use it to say something help when a user is trying to find a property inside of a object that does not exists.
+One of the many things proxies can be useful for is, we can use it to say something help when a user is trying to find a property inside of a object that does not exists. A `Proxy` allows you to create an object that can be used in place of the original object. We can do regular operations on proxies as we would on objects like, `adding`, `removing`, `modifying` or `deleting` properties from the original object.
 ```js
 const obj={age:9};
 
