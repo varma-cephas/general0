@@ -1,25 +1,23 @@
-# 1.22.25, ES6
-Arrow Functions
-One difference between regular functions and arrow function expressions is thatarrow functions are always expressions infact, their full name is actually“arrow function expressions”, this mean that they can only be used where an expression is valid, which includes being:
-stored in a variable
-passed as an argument to a function.
-stored in a object's property
-const greet = name => `Hello ${name}!`;
-when there's only one parameter in a function, you can write only that parameter name and exculde the parentheses..
-some devs prefer to use underscore \_ instead of an empty bracket when to declare arrow functions that are not going to take any parameter.
-when an arrow function is written in one line to return something, it is called the concise body syntax .
-this syntax has no curly bracket around the function body
-it automatically returns the expression.
-when more than a single line of code is needed, the block body syntaxcan be used.
-this syntax uses curly braces to wrap the function body
-a return statement is needed to return someting from the array.
-although arrow functions are useful, they should not be used when you have the following conditions:
-this (a dynamic value depending on how a function is called) doesn't work normally as it should in arrow functions.
-when this is used in arrow functions it depends on where the value(this) is called.
-arrow functions are only `expressions`
-arrow function declaration does not exist.
+	# 1.22.25, ES6
+### Arrow Functions
+One difference between regular functions and arrow function expressions is that arrow functions are always expressions in fact, their full name is actually `arrow function expressions`, this mean that they can only be used where an expression is valid, which includes being:
+- stored in a variable
+- passed as an argument to a function.
+- stored in a object's property
+```js
+const greet = name => Hello ${name}!;
+```
+the parentheses around the parameter name is not needed when there is only one parameter. When there is no parameter, you can skip the names altogether an use an `_` underscore.
 
-this and regular functions
+when an arrow function is written in one line to return something, it is called the concise body syntax .this syntax has no curly bracket around the function body, it automatically returns the expression.
+when more than a single line of code is needed, the block body syntax can be used.
+this syntax uses curly braces to wrap the function body a return statement is needed to return something from the array. although arrow functions are useful, they should not be used when you have the following conditions: 
+- this (a dynamic value depending on how a function is called) doesn't work normally as it should in arrow functions.
+- when this is used in arrow functions it depends on where the value(this) is called.
+- arrow functions are only `expressions`
+- arrow function declaration does not exist.
+
+### this and regular functions
 the value of this depends completely on how it's function is called in regular functions
 const mySundae = new Sundae('Chocolate', ['Sprinkles', 'Hot Fudge']);
 in the above example, the value of this inside the Sundae contructor function is a new object cause it was called with new. (new object)
@@ -35,7 +33,7 @@ in the example above, the value of this refers to either the global object or if
 this and Arrow Function
 the value of this is based on the function's surrounding context in arrow functions. (meaning that the value of this inside an arrow function is the same value outside the function)
 
-Default function paramenter
+### Default function paramenter
 default parameters were introduced to es6 with the hope to help easy the task of writing default parameter. They can be written by:
 function greet(name = 'Student', greeting = 'Welcome') {
 return `${greeting} ${name}!`;
@@ -44,8 +42,10 @@ return `${greeting} ${name}!`;
 greet(); // Welcome Student!
 greet('James'); // Welcome James!
 greet('Richard', 'Howdy'); // Howdy Richard!
-Defaults and destructuring arrays
+
+### Defaults and destructuring arrays
 combining default function function parameters with destructuring is a great way to create some powerful functions
+```js
 function createGrid([width = 5, height = 5]) {
 return `Generates a ${width} x ${height} grid`;
 }
@@ -54,37 +54,51 @@ createGrid([]); // Generates a 5 x 5 grid
 createGrid([2]); // Generates a 2 x 5 grid
 createGrid([2, 3]); // Generates a 2 x 3 grid
 createGrid([undefined, 3]); // Generates a 5 x 3 grid
+```
+
+
+
 from the above example, the function expects any array to be apssed to it, it then uses destructuring to set the first item to the width, and the second to the height.
 when the createGrid() function is called without an argument, we can an error: `Uncaught TypeError:Cannot read property 'Symbol(Symbol.iterator)' of undefined`
 this is because our functions expects an array which will then be destructured, since we called the function without an argument, the error is thrown. to fix this look at the code below.
+```js
 function createGrid([width = 5, height = 5] = []) {
 return `Generates a ${width} x ${height} grid`;
 }
+```
 here we're using =[] to use an empty array as the default if the function is passed without an argument. which will allow our code to work.
-Defaults and destructuring objects.
+
+### Defaults and destructuring objects.
 just like we can have default array parameters, we can have an object as a default parameter of a function and use object destructuring
-function createSundae({scoops = 1, toppings = ['Hot Fudge']}) {
+```js
+function createSundae({scoops = 1, toppings = ['Hot Fudge']}={}) {
 const scoopText = scoops === 1 ? 'scoop' : 'scoops';
 return `Your sundae has ${scoops} ${scoopText} with ${toppings.join(' and ')} toppings.`;
 }
+
+console.log(createSundae({toppings:["Chocolate", "Milkshake"]}))
+```
 as our previous function with default parameter throw an error when we tried to call it without a parameter before, this will also throw an error when it is called without an argument. We'll get an error as we did before, this time it is going to be `Uncaught TypeError:Cannot match against 'undefined' or 'null`. to fix, take a look at the code below:
+```js
 function createSundae({scoops = 1, toppings = ['Hot Fudge']} = {}) {
 const scoopText = scoops === 1 ? 'scoop' : 'scoops';
 return `Your sundae has ${scoops} ${scoopText} with ${toppings.join(' and ')} toppings.`;
 }
+```
 here we are adding ={} as an empty object, in the case no argument is provided, the function still works.
 
 Default function parameter conclusion.
-adding a default paramter to your functions is going to make your life much easier, one benefit of object defaults over array defaults is how they handle sktipped options. If you only want to use one of the dafault parameter, and assigned a value to the other, this is possible with object defaults.
+adding a default parameters to your functions is going to make your life much easier, one benefit of **object defaults** over **array defaults** is how they handle skipped options. If you only want to use one of the default parameter, and assigned a value to the other, this is possible with object defaults.
 However with arrays, you have to passed undefined to the position where you the default parameter to be used or skip over arguments.
-unless you have a strong reason to use array defaults with array destructuring, it is recommended to always use object defaults with object destructuring. (javascript classes are a thin mirage of regular functions and prototypical inheritance)
+unless you have a strong reason to use array defaults with array destructuring, it is recommended to always **use object defaults with object destructuring**. 
+(JavaScript classes are a thin mirage of regular functions and prototypical inheritance)
 
-Class preview
-class, super, extend
-javascript is `not a class based language` and it uses functions to create objects, and links objects together by prototypical inheritence.
-What is prototypical inheritence?
+## Class preview
+class, super, extend JavaScript is **not a class based language** and it uses functions to create objects, and links objects together by prototypical inheritance.
+What is prototypical inheritance? refers to when a property or method is requested for on an object and it's not found, JavaScript automatically looks on that object's prototype and return the method found there.
 
 Previous way to create a class in ES5
+```js
 function Plane(numEngines) {
 this.numEngines = numEngines;
 this.enginesActive = false;
@@ -101,11 +115,14 @@ richardsPlane.startEngines();
 
 var jamesPlane = new Plane(4);
 jamesPlane.startEngines();
-rewrite the entire hero section, you don't have to poke a stick in the dark, the webpage is right there, look at the properties. put the work in.
+```
+
+rewrite the entire hero section, you don't have to poke a stick in the dark, the web page is right there, look at the properties. put the work in.
 
 
 # 1.23.25, ES6
-with the knowledge that classes are just a mirage to hide the fact that prototypal inheritence is actually going on, this is how classes were created back then in ES5
+with the knowledge that classes are just a mirage to hide the fact that prototypal inheritance is actually going on, this is how classes were created back then in ES5
+```js
 function Plane(numEngines) {
 this.numEngines = numEngines;
 this.enginesActive = false;
@@ -122,8 +139,8 @@ richardsPlane.startEngines();
 
 var jamesPlane = new Plane(4);
 jamesPlane.startEngines();
-in the code above, the Plane function is a constructor function that will create new Plane objects.  
-methods that are inherited by each Plane object are placed on the Plane.prototype object.
+```
+in the code above, the Plane function is a constructor function that will create new Plane objects.  methods that are inherited by each Plane object are placed on the Plane.prototype object.
 while richardsPlane is created with one engine, and jamesPlane is created with two, they both use te same method startEngines method to turn on their engines.
 things to consider:
 the constructor function is called with the new keyword.
@@ -133,6 +150,7 @@ inherited methods placed on the constructor function's prototype object.
 it is worth noting that ES6 classes are made of all the things mentioned above.
 
 here's how the same Plane class would look like in the ES6 class syntax
+```js
 class Plane {
 constructor(numEngines) {
 this.numEngines = numEngines;
@@ -144,10 +162,12 @@ console.log('starting engines…');
 this.enginesActive = true;
 }
 }
+```
 in the above code, the startEngine method is on the prototype of the Plane class, while the constructor method is a new special method that exists in the class that is used to initialize new object.
 the class syntax is just a nicer way that was introduced to be used, instead of using functions as constructors.
 
-Classes are just functions.
+#### Classes are just functions.
+```js
 class Plane {
 constructor(numEngines) {
 this.numEngines = numEngines;
@@ -161,10 +181,12 @@ this.enginesActive = true;
 }
 
 typeof Plane; // function
+```
 it's just a function dawg, there's no new type of class in ES6 or JS in general.
 
 Static methods
 to add a static method, add the static keyword in front of the class name.
+```js
 class Plane {
 constructor(numEngines) {
 this.numEngines = numEngines;
@@ -182,26 +204,30 @@ console.log('starting engines…');
 this.enginesActive = true;
 }
 }
-to add the badWeather() method directly to the Plane class, the static keyword should be used.
-big update boys, the functions or variables or objects declared with the static keyword in a class means that you can only access that function, variable, or object on the class itself, and not the instance of that that class, say using the new keyword to instantiate an instace.
+```
+to add the badWeather() method directly to the Plane class, the static keyword should be used. big update boys, the functions or variables or objects declared with the static keyword in a class means that you can only access that function, variable, or object on the class itself, and not the instance of that that class, say using the new keyword to instantiate an instace.
 Benefits of classes
-there is lesss code that you need to write to create a function.
-you can clearly define the constructor function inside of the class definition.
-all the code that is needed for a particular class is contained in the class declaration, instead of having one constructor function in one place, and adding methods to the prototype at a time, you can do everything at once.
+- there is lesss code that you need to write to create a function.
+- you can clearly define the constructor function inside of the class definition.
+- all the code that is needed for a particular class is contained in the class declaration, instead of having one constructor function in one place, and adding methods to the prototype at a time, you can do everything at once.
 
-Things to consider when using classes
+### Things to consider when using classes
 they are not magic, the classes keyword brings with it a lot of mental construct from other class based language. it doesn't add this functionality to JS classes.
 class is just a mirage over prototypal inheritance. under the hood, JS classes JS classes just uses prototypal inheritance(which is object inheriting from other objects)
 using classes always requires the use of the new keyword, that is when creating a new instance of a JS class, the new keyword must be used.
+
+```js
 class Toy {
 ...
 }
 
 const myToy1 = Toy(); // throws an error
 const myToy2 = new Toy(); // this works!
-
+/*
 Subclasses with ES6
 now that you understand how classes are created, look at the use of the super and extend keyword to extend a class.
+*/
+
 class Tree {
 constructor(size = '10', leaves = {spring: 'green', summer: 'green', fall: 'orange', winter: null}) {
 this.size = size;
@@ -239,12 +265,13 @@ const myMaple = new Maple(15, 5);
 myMaple.changeSeason('fall');
 myMaple.gatherSyrup();
 myMaple.changeSeason('spring');
-the code above, both classes are JS classes. the Maple class however is a subclass of Treeand uses the extendskeyword to set itself as a subclass.
-to get from subclass to parent class, the super keyword isused.
-super is used two ways though, in the Maple's constructor method, super is used as a function. In the Maple 's changeSeason() method, superis used as an object.
-ES5 Subclasses with the same functionality above as subclasses in es6
+```
+the code above, both classes are JS classes. the Maple class however is a subclass of Tree and uses the extends keyword to set itself as a subclass. to get from subclass to parent class, the super keyword is used. super is used two ways though, in the Maple's constructor method, super is used as a function. In the Maple 's changeSeason() method, superis used as an object.
+ES5 Sub-classes with the same functionality above as subclasses in es6
+
+```js
 function Tree(size, leaves) {
-this.size = (typeof size === "undefined")? 10 : size;
+this.size = (typeof size === "undefined") ? 10 : size;
 const defaultLeaves = {spring: 'green', summer: 'green', fall: 'orange', winter: null};
 this.leaves = (typeof leaves === "undefined")? defaultLeaves : leaves;
 this.leafColor;
@@ -280,12 +307,12 @@ const myMaple = new Maple(15, 5);
 myMaple.changeSeason('fall');
 myMaple.gatherSyrup();
 myMaple.changeSeason('spring');
+```
 
 Working with subclasses
-like most of the new stuff in ES6, a lot less code isrequired to set up some code, and the syntax is alot cleaner to create subclasses using the class , super , and extend keywords.
-remember though that under the hood, the same connections are made between functions and prototypes
-super must be called before this
-in a subclass constructor function, before this can be used, a call on the super or parent class must be made.
+like most of the new stuff in ES6, a lot less code is required to set up some code, and the syntax is a lot cleaner to create sub-classes using the class , super , and extend keywords.
+remember though that under the hood, the same connections are made between functions and prototypes super must be called before this in a subclass constructor function, before this can be used, a call on the super or parent class must be made.
+```js
 class Apple {}
 class GrannySmith extends Apple {
 constructor(tartnessLevel, energy) {
@@ -293,20 +320,22 @@ this.tartnessLevel = tartnessLevel; // `this` before `super` will throw an error
 super(energy);
 }
 }
+```
 objects that are instantiated from classes, that are also sub classes of other parent classes, are also instances of those objects.
 
 Directions:
-Create aBicyclesubclass that extends theVehicleclass. TheBicyclesubclass should overrideVehicle's constructor function by changing the default values forwheelsfrom4to2andhornfrom'beep beep'to'honk honk'.
+Create a Bicycle subclass that extends the Vehicle class. The Bicycle subclass should override Vehicle's constructor function by changing the default values for wheels from 4 to 2 and horn from 'beep beep' to 'honk honk'.
+```js
 class Vehicle {
 constructor(color = 'blue', wheels = 4, horn = 'beep beep') {
-this.color = color;
-this.wheels = wheels;
-this.horn = horn;
+	this.color = color;
+	this.wheels = wheels;
+	this.horn = horn;
 }
 
-    honkHorn() {
+honkHorn() {
     	console.log(this.horn);
-    }
+}
 
 }
 
@@ -325,6 +354,7 @@ myVehicle.honkHorn(); // beep beep
 const myBike = new Bicycle();
 myBike.honkHorn(); // honk honk
 //_/
+```
 
 1. work only on codewars exercises that has something to do with the concepts that you are learning
    write the name of the topic that you'll on and add exercises github.com to the title to get good quality exercises to work on. e.g. class exercises: github.com
@@ -333,7 +363,7 @@ myBike.honkHorn(); // honk honk
 
 # 1.24.25, ES6
 dude waait, sets maps and promises are all built in!!!! these built-ins make it more easy to execute tasks that were once more difficult in ES5. there's also appropriate time to use them and not to.
-Symbols
+## Symbols
 symbols are a latest addition to a list of primitive data types in js.
 symbols are basically just a unique identifier, it is most often used to indentify properties within an object. (in my own words, I think they help when you have multiple objects properties that has the same name and you uniquely want to identify them.)  
 by def: a symbol is a unique and immutable data type that is used to identify object properties.
