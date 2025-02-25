@@ -1,5 +1,5 @@
 ### Git Branching Model
-a git branching model defines or determine when and how changed are made and committed to a specific codebase. the benefit of using a git branching model is that it helps to expendite or speed up of the process of delivering feedback to devs. It is good to remember that a **git branching model** does not come oout of the box with git hosting solutions.
+a git branching model defines or determine when and how changed are made and committed to a specific code-base. the benefit of using a git branching model is that it helps to expedite or speed up of the process of delivering feedback to devs. It is good to remember that a **git branching model** does not come out of the box with git hosting solutions.
 these git branching models help overcome branching pattern design challenges that might eventually come up.
 #### Git branching model types
 - feature branching model
@@ -36,5 +36,17 @@ these git branching models help overcome branching pattern design challenges tha
   - branch destablizations might happen since everyone is working on the same branch, which can lead to increased dev frustration.
   - challenging to scale because you have multiple devs commiting at the same time or commit large changes.
 
-###  Conclusion
+###  Git branching model Conclusion
 It's not necessarily compulsory to use only of these branching strategies, but you can rather combine them according to your project's need. For example, your team could use a trunk-based strategy when working on small hot fixes or features, and use the feature or release branching strategy when working on big features.
+
+### Types of branches
+- development branch aka `dev` - this is the branch where you will work on most new features and it's also where you'll have your pull-request workflows. in summary it's the branch where most new features is _targeted_. 
+- production branch aka `main` - this is where releases will be deployed. it also branches from and merges back into the `dev` branch. In a **git flow** based workflow, it is used to prepare for a new release.
+- feature branch aka `ft/feature_name` - this branch is where specific feature work or improvements will be made. It branches from and merges back into the `dev` branch with the use of **pull request**.
+- hotfix branch aka `ht/branch` - this branch is where quick fix for the `main` branch is made, without interrupting the `dev` branch. Changes usually merge into both the `main` and `dev` branch in most **git workflows**.
+- bug-fix aka `bg/bug_name` - this branch might be more intensive when it comes to the amount of changes done.
+- release aka `rl/release_name` - this branch is used to release tasks and long term versions of the code-base. They are mostly branched from the `dev` branch and merged into the main branch.
+
+### Contribution rule and gitflow
+- https://classic-cobalt-104.notion.site/Contribution-rules-and-git-flow-0505d789170f4c0a8b7b5d7b41df7bf5
+- https://www.conventionalcommits.org/en/v1.0.0/
