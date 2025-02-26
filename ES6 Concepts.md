@@ -1315,3 +1315,24 @@ console.log(arrIterator.next())
 
 ### Iterable
 Iterables are basically data structures that allow their data to be consumed or used. An example of iterables are `Maps`, `Arrays`, `Sets`, and `Strings`.
+
+### Destructuring in (for...of) loop
+When you're using a for...of loop, you can destructure an array or an array of objects. Look at the example below...
+
+```js
+const transformToObject=aob=>{
+    const obj={};
+    for(const {id, name} of aob){
+        obj[id] = name
+    }
+    return obj;
+}
+const users = [
+  { id: 1, name: 'Alice' },
+  { id: 2, name: 'Bob' },
+  { id: 3, name: 'Charlie' },
+];
+
+const transformed = transformToObject(users);
+console.log(transformed); // Output: { '1': 'Alice', '2': 'Bob', '3': 'Charlie' }
+```
