@@ -1336,3 +1336,29 @@ const users = [
 const transformed = transformToObject(users);
 console.log(transformed); // Output: { '1': 'Alice', '2': 'Bob', '3': 'Charlie' }
 ```
+
+### Spreading a Sets
+```js
+const flattenAndUnique=narr=>{
+    const st=new Set();
+    for(const val of narr){
+        if(typeof val==="number"){
+            st.add(val)
+        }else{
+            for(const val2 of val){
+                if(typeof val2==='number'){
+                    st.add(val2)
+                }else{
+                    for(const val3 of val2){
+                        st.add(val3)
+                    }
+                }
+            }
+        }
+    }
+    return [...st]
+}
+const nestedArray = [1, [2, 3], 4, [2, [5, 1]], 3];
+const result = flattenAndUnique(nestedArray);
+console.log(result); // Output: [1, 2, 3, 4, 5]
+```
