@@ -50,3 +50,6 @@ It's not necessarily compulsory to use only of these branching strategies, but y
 ### Contribution rule and gitflow
 - https://classic-cobalt-104.notion.site/Contribution-rules-and-git-flow-0505d789170f4c0a8b7b5d7b41df7bf5
 - https://www.conventionalcommits.org/en/v1.0.0/
+
+### Fixing merge conflict (GIT)
+-https://barbagroup.github.io/essential_skills_RRC/git/conflicts/#:~:text=To%20resolve%20the%20conflict%2C%20open,signs%20when%20you%20are%20done.&text=Right%2C%20we%20need%20to%20stage%20the%20changes%20me%20made.&text=And%20now%20it's%20time%20to%20commit%20!
